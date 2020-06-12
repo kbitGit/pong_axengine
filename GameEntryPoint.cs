@@ -9,22 +9,13 @@ namespace Pong
     {
         static void Main(string[] args)
         {
-            var config = new RenderApplicationConfig
-            {
 
-                WindowTitle = "Pong",
+            var game = new PongGame();
+            game.Start(new ApplicationConfig()
+            {
                 WindowSize = new Vector2i(1920, 1080),
-                WindowBorder = WindowBorder.Resizable,
-                IsMultiThreaded = true,
-                RenderFrequency = 0,
-                UpdateFrequency = 0,
-                IdleRenderFrequency = 0,
-                IdleUpdateFrequency = 0,
-                VSync = VSyncMode.Off,
-                // UseGtkUI = true,
-                UseConsole = true,
-            };
-            new GameStartup<PongGame, GtkUI>(config).Start();
+
+            });
         }
     }
 }
