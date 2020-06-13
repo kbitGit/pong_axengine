@@ -17,27 +17,26 @@ namespace Pong
         {
 
 
-            camSize = new Vector2(9 * RenderContext.ScreenAspectRatio, 9);
+            camSize = new Vector2(18 * RenderContext.ScreenAspectRatio, 18);
             System.Console.WriteLine(camSize);
-            player1 = new Paddle(new Vector2(-camSize.X / 2 + 0.5f, 0), new Vector3(1, 1, 3) * new Vector3(0.5f));
-            player2 = new Paddle(new Vector2(camSize.X / 2 - 0.5f, 0), new Vector3(1, 1, 3) * new Vector3(0.5f));
+            player1 = new Paddle(new Vector2(-camSize.X / 2 + 0.5f, 0), new Vector2(1, 3) * new Vector2(0.5f));
+            player2 = new Paddle(new Vector2(camSize.X / 2 - 0.5f, 0), new Vector2(1, 3) * new Vector2(0.5f));
             SceneContext.AddActor(player1);
             SceneContext.AddActor(player2);
             SceneContext.AddActor(new Actor(new DirectionalLightComponent()
             {
-                //RelativeScale = new Vector3(3, 3, 3),
                 Name = "StaticLight",
                 RelativeTranslation = new Vector3(0, 0, 10),
-                Direction = new Vector3(0, 1, 0), // Let the light come from the direction of the camera
-                //RelativeRotation = new Vector3(0, -90, 0).ToQuaternion()
+                Direction = new Vector3(0, 0, -1), // Let the light come from the direction of the camera
             }));
-            /*RenderContext.Camera = new OrthographicCamera(new Vector3(0, -3, 0))
+            RenderContext.Camera = new OrthographicCamera(new Vector3(0, 0, 10))
             {
                 Size = camSize,
-                NearPlane = 0.01f,
-                FarPlane = 100.0f,
-                LookAt = new Vector3(0, 0, 0)
-            };*/
+                NearPlane = 0.001f,
+                FarPlane = 1000.0f,
+                LookAt = new Vector3(0, 0, 0),
+                Up = new Vector3(0, 1, 0),
+            };
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {

@@ -10,13 +10,13 @@ namespace Pong
     class Paddle : Actor
     {
         public Vector2 Position { get; set; }
-        public Vector3 Size { get; set; }
+        public Vector2 Size { get; set; }
 
         public Paddle(ActorComponent component) : base(component)
         {
             setupPaddle();
         }
-        public Paddle(Vector2 position, Vector3 size)
+        public Paddle(Vector2 position, Vector2 size)
         {
             Position = position;
             Size = size;
@@ -28,8 +28,8 @@ namespace Pong
             AddComponent(new CubeComponent()
             {
                 Name = "gfx",
-                RelativeTranslation = new Vector3(Position.X, 0, Position.Y),
-                RelativeScale = Size,
+                RelativeTranslation = new Vector3(Position.X, Position.Y, 0),
+                RelativeScale = new Vector3(Size.X, Size.Y, 1),
                 //Material = new Material() { Color = new Vector4(1, 1, 1, 1) }
             });
         }
