@@ -15,6 +15,8 @@ namespace Pong
 
         private Paddle player1;
         private Paddle player2;
+
+        private Ball ball;
         protected override void SetupScene()
         {
             DefaultKeyBindings = false;
@@ -22,20 +24,30 @@ namespace Pong
             camSize = new Vector2(18 * RenderContext.ScreenAspectRatio, 18);
             System.Console.WriteLine(camSize);
 
-            player1 = new Paddle(new Vector2(-camSize.X / 2 + 0.5f, 0), new Vector2(1, 3) * new Vector2(0.5f))
+            player1 = new Paddle(new Vector2(-camSize.X / 2 + 1f, 0), new Vector2(1, 3))
             {
                 Up = Key.W,
-                Down = Key.S
+                Down = Key.S,
+                WorldSize = camSize,
             };
 
-            player2 = new Paddle(new Vector2(camSize.X / 2 - 0.5f, 0), new Vector2(1, 3) * new Vector2(0.5f))
+            player2 = new Paddle(new Vector2(camSize.X / 2 - 1f, 0), new Vector2(1, 3))
             {
                 Up = Key.Up,
-                Down = Key.Down
+                Down = Key.Down,
+                WorldSize = camSize,
+            };
+
+            ball = new Ball(new Vector2(0, 0), 0.5f)
+            {
+                FirstPlayer = player1,
+                SecondPlayer = player2,
+                WorldSize = camSize,
             };
 
             SceneContext.AddActor(player1);
             SceneContext.AddActor(player2);
+            SceneContext.AddActor(ball);
             SceneContext.AddActor(new Actor(new DirectionalLightComponent()
             {
                 Name = "StaticLight",
@@ -50,10 +62,14 @@ namespace Pong
                 LookAt = new Vector3(0, 0, 0),
                 Up = new Vector3(0, 1, 0),
             };
+            RenderContext.BackgroundColor = new Vector4(0, 0, 0, 1);
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-
+            if (KeyboardState[Key.Space])
+            {
+                ball.StartBallMovement();
+            }
         }
     }
 }
