@@ -57,6 +57,9 @@ namespace Pong
                 RelativeTranslation = new Vector3(0, 0, 10),
                 Direction = new Vector3(0, 0, -1), // Let the light come from the direction of the camera
             }));
+
+            SceneContext.AddActor(new Actor(new StatsComponent()));
+
             RenderContext.Camera = new OrthographicCamera(new Vector3(0, 0, 10))
             {
                 Size = camSize,
