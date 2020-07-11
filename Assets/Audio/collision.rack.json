@@ -1,0 +1,107 @@
+{
+    "Version": null,
+    "Modules": [
+        {
+            "Id": 0,
+            "Position": {
+                "X": 0,
+                "Y": 0
+            },
+            "Name": "RackChildConnector",
+            "Parameters": [
+                {
+                    "Id": 0,
+                    "Value": 0.0
+                }
+            ],
+            "SubRack": null
+        },
+        {
+            "Id": 1,
+            "Position": {
+                "X": 0,
+                "Y": 0
+            },
+            "Name": "VCO",
+            "Parameters": [
+                {
+                    "Id": 0,
+                    "Value": 0.2609002
+                },
+                {
+                    "Id": 1,
+                    "Value": 0.0
+                }
+            ],
+            "SubRack": null
+        },
+        {
+            "Id": 2,
+            "Position": {
+                "X": 0,
+                "Y": 0
+            },
+            "Name": "ADSR",
+            "Parameters": [
+                {
+                    "Id": 0,
+                    "Value": 4101.1265
+                },
+                {
+                    "Id": 1,
+                    "Value": 262636.4
+                },
+                {
+                    "Id": 2,
+                    "Value": 100.0
+                },
+                {
+                    "Id": 3,
+                    "Value": 282886.8
+                }
+            ],
+            "SubRack": null
+        },
+        {
+            "Id": 3,
+            "Position": {
+                "X": 0,
+                "Y": 0
+            },
+            "Name": "Amplifier",
+            "Parameters": [
+                {
+                    "Id": 0,
+                    "Value": 1.0
+                }
+            ],
+            "SubRack": null
+        }
+    ],
+    "Cables": [
+        {
+            "InputModuleId": 2,
+            "InputPortId": 0,
+            "OutputModuleId": 0,
+            "OutputPortId": 0
+        },
+        {
+            "InputModuleId": 3,
+            "InputPortId": 2,
+            "OutputModuleId": 2,
+            "OutputPortId": 0
+        },
+        {
+            "InputModuleId": 3,
+            "InputPortId": 0,
+            "OutputModuleId": 1,
+            "OutputPortId": 0
+        },
+        {
+            "InputModuleId": 0,
+            "InputPortId": 0,
+            "OutputModuleId": 3,
+            "OutputPortId": 0
+        }
+    ]
+}

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="Exists('..\..\AxEngine\Engine\Engine.csproj')">
-        <AximoEnginePath>..\..\AxEngine\</AximoEnginePath>
+        <AximoEnginePath>..\..\AxEngine</AximoEnginePath>
     </PropertyGroup>
 
     <ItemGroup Condition="$(AximoEnginepath) == ''">
@@ -16,4 +16,5 @@
         <ProjectReference Include="$(AximoEnginePath)\Engine\Engine.csproj" />
     </ItemGroup>
 
+    <Import Condition="$(AximoEnginepath) != ''" Project="$(AximoEnginePath)\props\SharedProjectSettings.props" />
 </Project>
