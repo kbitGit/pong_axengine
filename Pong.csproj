@@ -3,6 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <CodeAnalysisRuleSet>..\..\AxEngine\props\default.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <PropertyGroup Condition="Exists('..\..\AxEngine\Engine\Engine.csproj')">
