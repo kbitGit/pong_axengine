@@ -18,7 +18,6 @@ namespace Pong
             game.Start(new ApplicationConfig()
             {
                 WindowSize = new Vector2i(1920, 1080),
-
             });
         }
     }

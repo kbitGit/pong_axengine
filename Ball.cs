@@ -72,7 +72,7 @@ namespace Pong
                 }
 
                 if (collision)
-                    AudioManager.Default.PlayAsync("/tmp/subrack.json");
+                    AudioManager.Default.PlayAsync("Audio/collision.rack.json");
             }
         }
 
