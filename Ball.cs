@@ -53,6 +53,8 @@ namespace Pong
                 var movement = direction * Speed * delta;
                 var updatedPosition = gfx.RelativeTranslation + new Vector3(movement.X, movement.Y, 0);
 
+                gfx.RelativeTranslation = updatedPosition;
+
                 var collision = false;
                 var ballRadius = gfx.RelativeScale.X / 2;
 
@@ -62,8 +64,6 @@ namespace Pong
                     direction.Y = -direction.Y;
                     collision = true;
                 }
-
-                gfx.RelativeTranslation = updatedPosition;
 
                 if (FirstPlayer.CollidesWithBall(updatedPosition.Xy, ballRadius)
                     || SecondPlayer.CollidesWithBall(updatedPosition.Xy, ballRadius))
