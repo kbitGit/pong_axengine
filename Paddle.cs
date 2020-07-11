@@ -40,6 +40,8 @@ namespace Pong
             AddComponent(gfx);
         }
 
+        public Box2 Bounds { get; private set; }
+
         public override void UpdateFrame()
         {
             var delta = Application.Current.UpdateCounter.Elapsed.Milliseconds / 1000.0f;
@@ -53,9 +55,15 @@ namespace Pong
             {
                 gfx.RelativeTranslation = gfx.RelativeTranslation - new Vector3(0, Speed * delta, 0);
             }
+            Bounds = BoxHelper.FromCenteredSize(gfx.RelativeTranslation.Xy, gfx.RelativeScale.Xy);
         }
+
         public bool CollidesWithBall(Vector2 ballPosition, float radius)
         {
+            // var top = Bounds.Min.Y;
+            // var left = Bounds.Min.X;
+            // var bottom = Bounds.Max.Y;
+            // var right = Bounds.Max.X;
 
             var top = gfx.RelativeTranslation.Y + (gfx.RelativeScale.Y / 2);
             var bottom = gfx.RelativeTranslation.Y - (gfx.RelativeScale.Y / 2);
