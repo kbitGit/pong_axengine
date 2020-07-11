@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup Condition="$(AximoEnginepath) == ''">
-        <PackageReference Include="Aximo" Version="1.0.9" />
+        <PackageReference Include="Aximo" Version="1.0.10" />
     </ItemGroup>
     <ItemGroup Condition="$(AximoEnginepath) != ''">
         <ProjectReference Include="$(AximoEnginePath)\Engine\Engine.csproj" />
