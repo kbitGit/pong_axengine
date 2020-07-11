@@ -81,10 +81,13 @@ namespace Pong
                 bool secondPlayerCollision = SecondPlayer.CollidesWithBall(updatedPosition.Xy, ballRadius);
                 if (firstPlayCollision || secondPlayerCollision)
                 {
-                    var player = firstPlayCollision ? FirstPlayer : SecondPlayer;
-                    //if (player.ro
-                    direction.X = -direction.X;
-                    collision = true;
+                    //                    var player = firstPlayCollision ? FirstPlayer : SecondPlayer;
+
+                    if ((firstPlayCollision && direction.X < 0) || (secondPlayerCollision && direction.X > 0))
+                    {
+                        direction.X = -direction.X;
+                        collision = true;
+                    }
                 }
 
                 if (collision)

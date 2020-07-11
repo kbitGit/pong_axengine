@@ -60,29 +60,27 @@ namespace Pong
 
         public bool CollidesWithBall(Vector2 ballPosition, float radius)
         {
-            // var top = Bounds.Min.Y;
-            // var left = Bounds.Min.X;
-            // var bottom = Bounds.Max.Y;
-            // var right = Bounds.Max.X;
+            return CollidesWithBall(Bounds, ballPosition, radius);
+        }
 
-            var top = gfx.RelativeTranslation.Y + (gfx.RelativeScale.Y / 2);
-            var bottom = gfx.RelativeTranslation.Y - (gfx.RelativeScale.Y / 2);
-            var right = gfx.RelativeTranslation.X + (gfx.RelativeScale.X / 2);
-            var left = gfx.RelativeTranslation.X - (gfx.RelativeScale.X / 2);
+        private static bool CollidesWithBall(Box2 box, Vector2 ballPosition, float radius)
+        {
+            var top = box.Max.Y;
+            var left = box.Min.X;
+            var bottom = box.Min.Y;
+            var right = box.Max.X;
+
             bool checkIfInSquare = ballPosition.X.IsBetween(bottom, top) && ballPosition.Y.IsBetween(left, right);
-
             bool checkCorners = ballPosition.IsInCornerRadius(top, bottom, left, right, radius);
 
             bool topOrBotCollision = false;
             bool leftOrRightCollision = false;
             if (ballPosition.X.IsBetween(left, right))
-            {
                 topOrBotCollision = (Math.Abs(ballPosition.Y - top) <= radius) || (Math.Abs(bottom - ballPosition.Y) <= radius);
-            }
+
             if (ballPosition.Y.IsBetween(bottom, top))
-            {
                 leftOrRightCollision = (Math.Abs(ballPosition.X - right) <= radius) || (Math.Abs(left - ballPosition.X) <= radius);
-            }
+
             return checkIfInSquare || checkCorners || topOrBotCollision || leftOrRightCollision;
         }
     }
