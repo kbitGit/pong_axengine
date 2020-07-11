@@ -1,12 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Aximo" Version="1.0.8" />
-  </ItemGroup>
+    <PropertyGroup Condition="Exists('..\..\AxEngine\Engine\Engine.csproj')">
+        <AximoEnginePath>..\..\AxEngine\</AximoEnginePath>
+    </PropertyGroup>
+
+    <ItemGroup Condition="$(AximoEnginepath) == ''">
+        <PackageReference Include="Aximo" Version="1.0.8" />
+    </ItemGroup>
+    <ItemGroup Condition="$(AximoEnginepath) != ''">
+        <ProjectReference Include="$(AximoEnginePath)\Engine\Engine.csproj" />
+    </ItemGroup>
 
 </Project>

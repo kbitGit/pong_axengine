@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using Aximo.Engine;
+using Aximo.Engine.Audio;
 using Aximo.Engine.Components.Geometry;
 using Aximo.Engine.Windows;
 using OpenToolkit.Mathematics;
@@ -48,18 +49,29 @@ namespace Pong
                 var delta = Application.Current.UpdateCounter.Elapsed.Milliseconds / 1000.0f;
                 var movement = direction * Speed * delta;
                 var updatedPosition = gfx.RelativeTranslation + new Vector3(movement.X, movement.Y, 0);
+
+                var collision = false;
+
                 if (updatedPosition.Y + gfx.RelativeScale.Y / 2 > WorldSize.Y / 2
-                || updatedPosition.Y - gfx.RelativeScale.Y / 2 < -WorldSize.Y / 2)
+                    || updatedPosition.Y - gfx.RelativeScale.Y / 2 < -WorldSize.Y / 2)
                 {
                     direction.Y = -direction.Y;
-                }
-                gfx.RelativeTranslation = updatedPosition;
-                if (FirstPlayer.CollidesWithBall(updatedPosition.Xy, gfx.RelativeScale.X / 2)
-                || SecondPlayer.CollidesWithBall(updatedPosition.Xy, gfx.RelativeScale.X / 2))
-                {
-                    direction.X = -direction.X;
+                    collision = true;
                 }
 
+                gfx.RelativeTranslation = updatedPosition;
+
+                if (FirstPlayer.CollidesWithBall(updatedPosition.Xy, gfx.RelativeScale.X / 2)
+                    || SecondPlayer.CollidesWithBall(updatedPosition.Xy, gfx.RelativeScale.X / 2))
+                {
+                    direction.X = -direction.X;
+                    collision = true;
+                }
+
+                if (collision)
+                {
+                    AudioManager.Default.PlayAsync("/tmp/subrack.json");
+                }
             }
 
 
