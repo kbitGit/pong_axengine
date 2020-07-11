@@ -58,6 +58,14 @@ namespace Pong
                 var collision = false;
                 var ballRadius = gfx.RelativeScale.X / 2;
 
+                if (updatedPosition.X + ballRadius > WorldSize.X / 2
+                    || updatedPosition.X - ballRadius < -WorldSize.X / 2)
+                {
+                    gfx.RelativeTranslation = Vector3.Zero;
+                    startMovement = false;
+                    return;
+                }
+
                 if (updatedPosition.Y + ballRadius > WorldSize.Y / 2
                     || updatedPosition.Y - ballRadius < -WorldSize.Y / 2)
                 {
