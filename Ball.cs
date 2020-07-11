@@ -2,11 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using Aximo;
 using Aximo.Engine;
 using Aximo.Engine.Audio;
 using Aximo.Engine.Components.Geometry;
 using Aximo.Engine.Windows;
 using OpenToolkit.Mathematics;
+using OpenToolkit.Windowing.Common.Input;
 
 namespace Pong
 {
@@ -34,6 +36,7 @@ namespace Pong
             StartMovement = false;
             var rand = new Random();
             direction = new Vector2((float)rand.NextDouble(), (float)rand.NextDouble()).Normalized();
+            //direction = new Vector2(1, 0); // Debug
             gfx.RelativeTranslation = Vector3.Zero;
         }
 
@@ -54,6 +57,10 @@ namespace Pong
         }
         public override void UpdateFrame()
         {
+            var keyboardState = WindowContext.Current.Window.KeyboardState;
+            if (keyboardState.IsKeyDown(Key.R))
+                Reset();
+
             if (StartMovement)
             {
                 var delta = Application.Current.UpdateCounter.Elapsed.Milliseconds / 1000.0f;
@@ -83,8 +90,23 @@ namespace Pong
                 {
                     if ((firstPlayCollision && direction.X < 0) || (secondPlayerCollision && direction.X > 0))
                     {
+                        var player = firstPlayCollision ? FirstPlayer : SecondPlayer;
                         direction.X = -direction.X;
                         collision = true;
+
+                        var normalizedBounds = player.Bounds;
+                        normalizedBounds.Center = Vector2.Zero;
+                        var translatedDiff = player.Bounds.Center.Y;
+
+                        var translatedBallPos = gfx.RelativeTranslation.Y - translatedDiff;
+                        var scaledPaddleCollisionPos = translatedBallPos / player.Bounds.HalfSize.Y; // 0..1
+                        scaledPaddleCollisionPos *= 0.5f;
+                        var posY = AxMath.SinNorm(scaledPaddleCollisionPos / 4f);
+                        var posX = AxMath.CosNorm(scaledPaddleCollisionPos / 4f);
+                        var pos = new Vector2(posX, posY).Normalized();
+                        var newDirX = AxMath.SetSign(pos.X, direction.X);
+                        //var newDirY = AxMath.SetSign(pos.Y, direction.Y);
+                        direction = new Vector2(newDirX, pos.Y);
                     }
                 }
 

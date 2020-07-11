@@ -14,43 +14,43 @@ namespace Pong
 {
     internal class PongGame : Application
     {
-        private Vector2 camSize;
+        private Vector2 CamSize;
 
-        private Paddle player1;
-        private Paddle player2;
+        private Paddle Player1;
+        private Paddle Player2;
 
-        private Ball ball;
+        private Ball Ball;
         protected override void SetupScene()
         {
             DefaultKeyBindings = false;
 
-            camSize = new Vector2(18 * RenderContext.ScreenAspectRatio, 18);
-            System.Console.WriteLine(camSize);
+            CamSize = new Vector2(18 * RenderContext.ScreenAspectRatio, 18);
+            System.Console.WriteLine(CamSize);
 
-            player1 = new Paddle(new Vector2((-camSize.X / 2) + 1f, 0), new Vector2(1, 3))
+            Player1 = new Paddle(new Vector2((-CamSize.X / 2) + 1f, 0), new Vector2(1, 3))
             {
                 Up = Key.W,
                 Down = Key.S,
-                WorldSize = camSize,
+                WorldSize = CamSize,
             };
 
-            player2 = new Paddle(new Vector2((camSize.X / 2) - 1f, 0), new Vector2(1, 3))
+            Player2 = new Paddle(new Vector2((CamSize.X / 2) - 1f, 0), new Vector2(1, 3))
             {
                 Up = Key.Up,
                 Down = Key.Down,
-                WorldSize = camSize,
+                WorldSize = CamSize,
             };
 
-            ball = new Ball(new Vector2(0, 0), 0.5f)
+            Ball = new Ball(new Vector2(0, 0), 0.5f)
             {
-                FirstPlayer = player1,
-                SecondPlayer = player2,
-                WorldSize = camSize,
+                FirstPlayer = Player1,
+                SecondPlayer = Player2,
+                WorldSize = CamSize,
             };
 
-            SceneContext.AddActor(player1);
-            SceneContext.AddActor(player2);
-            SceneContext.AddActor(ball);
+            SceneContext.AddActor(Player1);
+            SceneContext.AddActor(Player2);
+            SceneContext.AddActor(Ball);
             SceneContext.AddActor(new Actor(new DirectionalLightComponent()
             {
                 Name = "StaticLight",
@@ -62,7 +62,7 @@ namespace Pong
 
             RenderContext.Camera = new OrthographicCamera(new Vector3(0, 0, 10))
             {
-                Size = camSize,
+                Size = CamSize,
                 NearPlane = 0.001f,
                 FarPlane = 1000.0f,
                 LookAt = new Vector3(0, 0, 0),
@@ -72,9 +72,12 @@ namespace Pong
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
+            if (KeyboardState[Key.Q])
+                Stop();
+
             if (KeyboardState[Key.Space])
             {
-                ball.StartBallMovement();
+                Ball.StartBallMovement();
             }
         }
     }
