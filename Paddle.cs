@@ -74,10 +74,10 @@ namespace Pong
             bool checkCorners = ballPosition.IsInCornerRadius(top, bottom, left, right, radius);
 
             bool topOrBotCollision = false;
-            bool leftOrRightCollision = false;
             if (ballPosition.X.IsBetween(left, right))
                 topOrBotCollision = (Math.Abs(ballPosition.Y - top) <= radius) || (Math.Abs(bottom - ballPosition.Y) <= radius);
 
+            bool leftOrRightCollision = false;
             if (ballPosition.Y.IsBetween(bottom, top))
                 leftOrRightCollision = (Math.Abs(ballPosition.X - right) <= radius) || (Math.Abs(left - ballPosition.X) <= radius);
 
