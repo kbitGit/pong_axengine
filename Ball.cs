@@ -44,9 +44,18 @@ namespace Pong
         {
             gfx = new SphereComponent(4)
             {
+                Name = "Ball",
                 RelativeTranslation = new Vector3(position.X, position.Y, 0),
                 // Because Scale is the diameter, the radius need to be doubled
                 RelativeScale = new Vector3(radius * 2, radius * 2, radius * 2),
+                Material = new Material
+                {
+                    Color = new Vector4(0.55f, 0.20f, 0.20f, 1),
+                    Ambient = 0.3f,
+                    Shininess = 32.0f,
+                    SpecularStrength = 0.5f,
+                    CastShadow = true,
+                },
             };
             AddComponent(gfx);
         }
@@ -63,8 +72,12 @@ namespace Pong
 
             if (StartMovement)
             {
-                var delta = Application.Current.UpdateCounter.Elapsed.Milliseconds / 1000.0f;
-                var movement = direction * Speed * delta;
+                var speed = Speed;
+                if (keyboardState[Key.ControlLeft])
+                    speed = speed * 0.1f;
+
+                var delta = (float)Application.Current.UpdateCounter.Elapsed.TotalMilliseconds / 1000.0f;
+                var movement = direction * speed * delta;
                 var updatedPosition = gfx.RelativeTranslation + new Vector3(movement.X, movement.Y, 0);
 
                 var collision = false;
