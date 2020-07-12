@@ -21,7 +21,7 @@ namespace Pong
         public Key Up { get; set; }
         public Key Down { get; set; }
 
-        private CubeComponent gfx;
+        private SceneComponent gfx;
 
         public Paddle(Vector2 position, Vector2 size)
         {
@@ -30,12 +30,19 @@ namespace Pong
 
         private void SetupPaddle(Vector2 position, Vector2 size)
         {
-            gfx = new CubeComponent()
+            gfx = new RoundedCubeComponent()
             {
                 Name = "gfx",
-                RelativeTranslation = new Vector3(position.X, position.Y, 0),
+                RelativeTranslation = new Vector3(position.X * 0.95f, position.Y, 0),
                 RelativeScale = new Vector3(size.X, size.Y, 1),
-                Material = new Material() { Color = new Vector4(1, 1, 1, 1) },
+                Material = new Material()
+                {
+                    Color = new Vector4(0.5f, 1f, 0.5f, 1f),
+                    CastShadow = true,
+                    Ambient = 0.3f,
+                    Shininess = 32.0f,
+                    SpecularStrength = 0.5f,
+                },
             };
             AddComponent(gfx);
         }
@@ -44,7 +51,7 @@ namespace Pong
 
         public override void UpdateFrame()
         {
-            var delta = Application.Current.UpdateCounter.Elapsed.Milliseconds / 1000.0f;
+            var delta = (float)Application.Current.UpdateCounter.Elapsed.TotalMilliseconds / 1000.0f;
             var keyboardState = WindowContext.Current.Window.KeyboardState;
 
             if (keyboardState.IsKeyDown(Up) && (gfx.RelativeTranslation.Y + (gfx.RelativeScale.Y / 2)) < WorldSize.Y / 2)
