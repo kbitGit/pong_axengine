@@ -13,11 +13,17 @@ namespace Pong
     {
         private static void Main(string[] args)
         {
-
             var game = new PongGame();
             game.Start(new ApplicationConfig()
             {
                 WindowSize = new Vector2i(1920, 1080),
+                WindowTitle = "Aximo Pong",
+                IdleRenderFrequency = 0,
+                IdleUpdateFrequency = 0,
+                RenderFrequency = 0,
+                UpdateFrequency = 0,
+                VSync = VSyncMode.Off,
+                //IsMultiThreaded = false,
             });
         }
     }
