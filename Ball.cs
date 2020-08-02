@@ -14,7 +14,7 @@ namespace Pong
 {
     internal class Ball : Actor
     {
-        public static float Speed = 10.0f;
+        public static float Speed = 23.0f;
         private SphereComponent gfx;
 
         public Paddle FirstPlayer;
@@ -25,9 +25,9 @@ namespace Pong
         private Vector2 direction;
         private bool StartMovement;
 
-        public Ball(Vector2 position, float radius)
+        public Ball(float radius)
         {
-            AddSphere(position, radius);
+            AddSphere(radius);
             Reset();
         }
 
@@ -37,15 +37,14 @@ namespace Pong
             var rand = new Random();
             direction = new Vector2((float)rand.NextDouble(), (float)rand.NextDouble()).Normalized();
             //direction = new Vector2(1, 0); // Debug
-            gfx.RelativeTranslation = Vector3.Zero;
+            gfx.RelativeTranslation = new Vector3(-5, 0, 0);
         }
 
-        private void AddSphere(Vector2 position, float radius)
+        private void AddSphere(float radius)
         {
             gfx = new SphereComponent(4)
             {
                 Name = "Ball",
-                RelativeTranslation = new Vector3(position.X, position.Y, 0),
                 // Because Scale is the diameter, the radius need to be doubled
                 RelativeScale = new Vector3(radius * 2, radius * 2, radius * 2),
                 Material = new Material

@@ -44,7 +44,7 @@ namespace Pong
                 WorldSize = CamSize,
             };
 
-            Ball = new Ball(new Vector2(0, 0), 0.5f)
+            Ball = new Ball(0.5f)
             {
                 FirstPlayer = Player1,
                 SecondPlayer = Player2,
@@ -109,7 +109,7 @@ namespace Pong
                 Material = groundMaterial,
             }));
 
-            //SceneContext.AddActor(new Actor(new StatsComponent()));
+            SceneContext.AddActor(new Actor(new StatsComponent()));
 
             RenderContext.Camera = new OrthographicCamera(new Vector3(0, 0, 10))
             {
@@ -125,6 +125,9 @@ namespace Pong
         {
             if (KeyboardState[Key.Escape])
                 Stop();
+
+            if (KeyboardState[Key.AltRight] && KeyboardState[Key.K])
+                DefaultKeyBindings = !DefaultKeyBindings;
 
             if (KeyboardState[Key.Space])
             {
